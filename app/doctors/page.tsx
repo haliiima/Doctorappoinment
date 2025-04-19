@@ -36,7 +36,7 @@ export default function DoctorsPage() {
     const fetchDoctors = async () => {
       try {
         let url = "/api/doctors"
-        if (specialty) {
+        if (specialty && specialty !== "all") {
           url += `?specialty=${specialty}`
         }
 
@@ -65,11 +65,15 @@ export default function DoctorsPage() {
   const filteredDoctors = doctors.filter((doctor) => {
     let matches = true
 
-    if (location && doctor.location.toLowerCase().indexOf(location.toLowerCase()) === -1) {
+    if (location && location !== "all" && doctor.location.toLowerCase().indexOf(location.toLowerCase()) === -1) {
       matches = false
     }
 
-    if (availability && doctor.availability.toLowerCase().indexOf(availability.toLowerCase()) === -1) {
+    if (
+      availability &&
+      availability !== "all" &&
+      doctor.availability.toLowerCase().indexOf(availability.toLowerCase()) === -1
+    ) {
       matches = false
     }
 
@@ -96,7 +100,7 @@ export default function DoctorsPage() {
                       <SelectValue placeholder="All Specialties" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Specialties</SelectItem>
+                      <SelectItem value="all">All Specialties</SelectItem>
                       <SelectItem value="cardiology">Cardiology</SelectItem>
                       <SelectItem value="neurology">Neurology</SelectItem>
                       <SelectItem value="pediatrics">Pediatrics</SelectItem>
@@ -115,7 +119,7 @@ export default function DoctorsPage() {
                       <SelectValue placeholder="All Locations" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Locations</SelectItem>
+                      <SelectItem value="all">All Locations</SelectItem>
                       <SelectItem value="new york">New York</SelectItem>
                       <SelectItem value="central">Central Hospital</SelectItem>
                       <SelectItem value="children">Children's Medical Center</SelectItem>
@@ -134,7 +138,7 @@ export default function DoctorsPage() {
                       <SelectValue placeholder="Any Time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any Time</SelectItem>
+                      <SelectItem value="all">Any Time</SelectItem>
                       <SelectItem value="today">Today</SelectItem>
                       <SelectItem value="tomorrow">Tomorrow</SelectItem>
                       <SelectItem value="2 days">In 2 Days</SelectItem>
